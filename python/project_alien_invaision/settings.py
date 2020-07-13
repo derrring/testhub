@@ -1,7 +1,7 @@
 class Settings():
 
     def __init__(self):
-        
+       '''游戏初始化设置''' 
         #set screen
         self.screen_width = 1200
         self.screen_height = 800
