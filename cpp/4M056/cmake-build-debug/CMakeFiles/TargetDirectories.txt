@@ -1,0 +1,3 @@
+C:/Users/zvezd/OneDrive/code/Clion/cpp_courses/cmake-build-debug/CMakeFiles/cpp_courses.dir
+C:/Users/zvezd/OneDrive/code/Clion/cpp_courses/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/zvezd/OneDrive/code/Clion/cpp_courses/cmake-build-debug/CMakeFiles/rebuild_cache.dir
