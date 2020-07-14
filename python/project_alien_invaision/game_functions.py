@@ -29,7 +29,7 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event,ship)
-def update_screen(ai_settings, screen, ship, alien, bullets)
+def update_screen(ai_settings, screen, ship, alien, bullets):
     screen.fill(ai_settings.bg_color)
     #在飞船和外星人后面重绘所有的子弹
     for bullet in bullets.sprites():
