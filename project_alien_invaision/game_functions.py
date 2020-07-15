@@ -1,6 +1,7 @@
 import sys
 import pygame
 from bullet import Bullet
+from alien import Alien
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
     '''响应按键'''
@@ -35,7 +36,7 @@ def update_screen(ai_settings, screen, ship, alien, bullets):
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
-    alien.blitme()
+    alien.draw(screen)
     pygame.display.flip()
 
 def update_bullets(bullets):
@@ -53,3 +54,20 @@ def fire_bullet(ai_settings, screen, ship, bullets):
     if len(bullets) <= ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+
+def create_fleet(ai_settings, screen, aliens):
+    '''create a fleet of aliens'''
+    #create a signle alien and calculate how many aliens could be simutaneously drawed in a row
+    #
+    alien = Alien(ai_settings, screen)
+    alien_width = alien.rect.alien_width
+    availiable_space_x = ai_settings.screen_width - 2*alien_width
+    number_alien_x = int(availiable_space_x/(2*alien_width))
+    
+    #create first row of aliens
+    for alien_number  in range(number_alien_x):
+        #create an alien and add it to the current row
+        alien = Alien(ai_settings, screen)
+        alien.x = alien_width + 2*alien_width*alien_number
+        alien.rect.x = alien.x
+        aliens.add(alien)
