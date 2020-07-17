@@ -15,6 +15,7 @@ def run_game():
     #创建一个用于储存子弹的编组
     bullets = Group()
     #创建外星人编组
+    alien = Alien(ai_settings, screen)
     aliens = Group()
     #游戏主循环
     while True:
