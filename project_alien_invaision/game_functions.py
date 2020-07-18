@@ -60,15 +60,14 @@ def fire_bullet(ai_settings, screen, ship, bullets):
 ############## Part. Creat (a fleet of aliens) ########################
 def get_number_alien_x(ai_settings, alien_width):
     """"calculate the  maximum number of aliens each line could contain"""
-    availiable_space_x = ai_settings.screen_width - 2*alien_width
-    number_alien_x = int(availiable_space_x/(2*alien_width))
-    
+    available_space_x = ai_settings.screen_width - 2*alien_width
+    number_alien_x = int(available_space_x/(2*alien_width))
     return number_alien_x
 
 def create_alien(ai_settings, screen, aliens, alien_number):
     """create an alien and add it to the current row"""
     alien = Alien(ai_settings, screen)
-    alien_width = alien.rect.alien_width
+    alien_width = alien.rect.width
     alien.x = alien_width + 2*alien_width*alien_number
     alien.rect.x = alien.x
     aliens.add(alien)
@@ -77,8 +76,8 @@ def create_fleet(ai_settings, screen, aliens):
     '''create a fleet of aliens'''
     #create a signle alien and calculate how many aliens could be simutaneously drawed in a row
     alien = Alien(ai_settings, screen)
-    number_alien_x = get_number_alien_x(ai_settings, ai.rect.width)
+    number_alien_x = get_number_alien_x(ai_settings, alien.rect.width)
     #create first row of aliens
     for alien_number  in range(number_alien_x):
-       create_alien(ai_settings, screen, aliens, alien.rect.width)
+       create_alien(ai_settings, screen, aliens, alien_number)
 
