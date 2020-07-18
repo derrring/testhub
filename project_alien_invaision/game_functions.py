@@ -30,13 +30,14 @@ def check_events(ai_settings, screen, ship, bullets):
             check_keydown_events(event, ai_settings, screen, ship, bullets)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event,ship)
-def update_screen(ai_settings, screen, ship, alien, bullets):
+
+def update_screen(ai_settings, screen, ship, aliens, bullets):
     screen.fill(ai_settings.bg_color)
     #在飞船和外星人后面重绘所有的子弹
     for bullet in bullets.sprites():
         bullet.draw_bullet()
     ship.blitme()
-    alien.draw(screen)
+    aliens.draw(screen)
     pygame.display.flip()
 
 def update_bullets(bullets):
@@ -56,8 +57,7 @@ def fire_bullet(ai_settings, screen, ship, bullets):
         bullets.add(new_bullet)
 
 
-
-
+############## Part. Creat (a fleet of aliens) ########################
 def get_number_alien_x(ai_settings, alien_width):
     """"calculate the  maximum number of aliens each line could contain"""
     availiable_space_x = ai_settings.screen_width - 2*alien_width
