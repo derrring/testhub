@@ -1,0 +1,481 @@
+\documentclass{article}
+%letterpaper,10pt,twoside,onecolumn,titlepage,openright,final
+
+\usepackage{xeCJK}
+%language support CJK
+
+%\usepackage[OT2,T1]{fontenc}
+\usepackage[french,russian,greek,english]{babel}
+\usepackage{geometry}
+%packageometry save us from calculate parameters that affect each other
+\geometry{inner=1.5cm,outer=1.5cm,top=2cm,bottom=2cm}
+
+%out margin in (ams)book class
+\usepackage{graphicx}
+%insert external pictures
+%usage \includegraphicx[]{}
+%parameter in [] : width, height, = ?cm scale = 0.6
+\usepackage[fulladjust]{marginnote}
+%\setlength{\marginparsep}{5mm}
+%\setlength{\marginparwidth}{1in}
+%\marginnote instead of \marginpar
+\usepackage{xcolor}
+\definecolor{hekishoku}{RGB}{0,127,137}
+\definecolor{soga}{RGB}{243,244,127}
+\definecolor{usukihada}{RGB}{249,241,192}
+\definecolor{tokiiro}{RGB}{243,166,150}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{mizu}{RGB}{127,204,227}
+\definecolor{ao}{RGB}{0,149,217}
+\definecolor{kohaku}{RGB}{234,147,10}
+\definecolor{daidai}{RGB}{238,120,0}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+%amsmath and ntheorem should be loaded before {fontspec}
+%\usepackage{mathtools}
+%offer pmatirx*
+\usepackage{ulem}
+%\uline{}, \uuline{}, \uwave{},\sout{},b\xout{},\dashuline{},\dotuline{},\sout{}(words only)
+\usepackage{cancel}
+%\cancel{} can be used in formulae!\bcancel{}\xcancle{}\cancelto{<value>}{<expression>}
+\usepackage{extarrows}
+
+\usepackage{fontspec,unicode-math}
+%unicode-math should be loaded after any othermaths or font-related package in case it needs to overwrite their definitions.
+\setmonofont{Courier New}%英文等宽字体
+\setsansfont{Noto Sans} %设置无衬线英文字体
+\setmainfont{Noto Serif}%{Latin Modern Roman} %设置衬线英文字体，
+\setmathfont{STIX Two Math}
+\setmathfont{STIX Two Math}[
+	range={scr,bfscr},StylisticSet=01
+	]
+\xeCJKsetup{AutoFakeSlant={true}}
+\setCJKmainfont[ItalicFont={FZNewKai-Z03}, BoldFont={Source Han Serif Bold}]{Source Han Serif}  %中文字体设置
+\setCJKsansfont{Hiragino Sans GB} %设置中文无衬线字体
+\setCJKmonofont{HanaMinA} %设置中文等宽字体字体
+
+
+
+\usepackage{listings}
+\lstdefinestyle{mystyle_py}{
+	backgroundcolor=\color{usukihada},
+	commentstyle=\color{hekishoku},
+	keywordstyle=\color{ao},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{daidai}\ttfamily,
+	basicstyle=\scriptsize\ttfamily,
+	extendedchars=true,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	frame=lines,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+  	tabsize=4,
+	emph=[1]{False, None, True, and, as, assert, async, await, break, class, continue, def, del, elif, else, except, finally, for, from, global, if, import, in, is, lambda, nonlocal, not, or, pass, raise, return, try, while, with, yield},
+	emphstyle = [1]\color{ao},
+	% Built-ins
+	emph=[2]{abs,all,any,basestring,bin,bool,bytearray,callable,chr,classmethod,cmp,compile,complex,delattr,dict,dir,divmod,enumerate,eval,execfile,file,filter,float,format,frozenset,getattr,globals,hasattr,hash,help,hex,id,input,int,isinstance,issubclass,iter,len,list,locals,long,map,max,memoryview,min,next,object,oct,open,ord,pow,property,range,raw_input,reduce,reload,repr,reversed,round,set,setattr,slice,sorted,staticmethod,str,sum,super,tuple,type,unichr,unicode,vars,xrange,zip,apply,buffer,coerce,intern},
+	emphstyle = [2]\color{ao}
+}
+
+\lstdefinestyle{mystyle_cpp}{
+	backgroundcolor=\color{OCM_08},
+	commentstyle=\color{OCM_01},
+	keywordstyle=\color{OCM_04},	
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{OCM_03}\ttfamily,
+	basicstyle=\color{OCM_07}\scriptsize\ttfamily,
+	extendedchars=true,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	frame=lines,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+  	tabsize=4,
+	emph=[2]{alignas, alignof, and, and_eq, asm, atomic_cancel, atomic_commit,atomic_noexcept, auto,
+	bitand, bitor, bool, break,
+	case, catch, char, char8_t, char16_t, char32_t, class, compl, concept, const, consteval, constexpr, constinit, const_cast, continue, co_await, co_return, co_yield,
+	decltype, default, delete, do, double, dynamic_cast,
+	else, enum, explicit, export, extern,
+	false, float, for, friend,
+	goto,
+	if, inline, int, long,
+	mutable, namespace, new, noexcept, not, not_eq, nullptr,
+	operator, or, or_eq, private, protected, public,
+	reflexpr, register, reinterpret_cast, requires, return,
+	short, signed, sizeof, static, static_assert, static_cast, struct, switch,synchronized,
+	template, this, thread_local, throw, true, try, typedef, typeid, typename,
+	union, unsigned, using, virtual, void, volatile,
+	wchar_t, while, xor, xor_eq},
+	emphstyle = [2]\color{OCM_02}
+	empi=[3]{
+		if, elif, else, endif, ifdef, ifndef,
+		define, undef, include, line,
+		error, pragma, defined,
+		__has_include, __has_cpp_attribute,
+		export, import, module
+	},
+	emphstyle = [3]\color{OCM_04}
+}
+
+\def\inline{\lstinline[style=mystyle_py]}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins,breakable,fitting,raster,xparse,external}
+\tcbset{
+	colback=red!5!white,
+	colframe=red!75!black
+	}
+\newtcolorbox[auto counter,number within=chapter,list inside=columns]{special_columns}[2][]{
+	colback=yellow!2!red!2!white,
+	colframe=magenta!15!orange!75!white,
+	fonttitle=\bfseries,breakable,enhanced,
+	title=专栏: #2,#1}
+
+\newcommand{\listofcolumns}{%
+  \tcblistof[\chapter*]{columns}{List of Column Boxes}
+}
+\usepackage{multicol,multirow,booktabs,makecell,array,colortbl}
+\usepackage{varwidth}
+\usepackage{titlesec,titletoc,etoc}
+\usepackage{caption,subcaption}
+\usepackage{enumitem}
+\setlist{noitemsep}
+\setlist[itemize,enumerate,1]{labelindent=\parindent,leftmargin=*}
+\setlist[enumerate,1]{label=\fbox{\arabic*.}}
+
+\usepackage{tikz,pgf,pgfplots,pgfplotstable}
+\usetikzlibrary{shapes, arrows.meta, trees, chains, positioning, shadows, calc,intersections,math,babel,cd}
+\usepgfplotslibrary{external, fillbetween} 
+
+\pgfplotsset{compat=newest}
+\usepackage{pdfpages}
+\usepackage[linesnumbered,lined,ruled,commentsnumbered]{algorithm2e}
+
+\usepackage{csquotes}
+\usepackage[backend=biber]{biblatex}
+%\addbibresource{math_bib_file.bib}
+
+
+
+\usepackage{amsthm,thmtools}
+\let\proof\relax
+\let\endproof\relax
+\def\thmbegin{\raisebox{0.35ex}{$\scriptstyle\blacktriangleright$}\hspace{0.3em}}
+\def\defbegin{\raisebox{0.2ex}{$\displaystyle\maltese$}\hspace{0.3em}}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+headpunct ={:},
+headformat=\thmbegin\NAME~\NUMBER \NOTE,
+bodyfont=\normalfont\itshape,
+postheadspace=1em,
+]{general_thm_style}
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\bfseries,
+notefont=\mdseries, notebraces={(}{)},
+headpunct ={:},
+headformat=\defbegin\NAME~\NUMBER \NOTE,
+bodyfont=\normalfont\itshape,
+postheadspace=1em,
+]{def_style}
+\declaretheorem[numberwithin=section, name=Theorem, style=general_thm_style]{theorem}
+\declaretheorem[sibling=theorem, name=Proposition, style=general_thm_style]{proposition}
+\declaretheorem[sibling=theorem, name=Definition, style=def_style]{definition}
+\declaretheorem[sibling=theorem, name=Lemma, style=general_thm_style]{lemma}
+\declaretheorem[sibling=theorem, name=Corollary, style=general_thm_style]{corollary}
+\declaretheorem[numberwithin=section, name=e.g.]{example}
+\declaretheorem[numberwithin=section, name=e.x.]{exercise}
+\declaretheorem[numberwithin=section, name=Remark]{remark}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\itshape,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em,
+headpunct={:},
+headformat=\underline{\NAME \NOTE},
+qed=\qedsymbol
+]{proof_style}
+\declaretheorem[numbered=no, name=Proof, style=proof_style]{proof}
+
+\declaretheoremstyle[
+spaceabove=6pt, spacebelow=6pt,
+headfont=\normalfont\itshape,
+notefont=\mdseries, notebraces={(}{)},
+bodyfont=\normalfont,
+postheadspace=1em,
+headpunct={:},
+headformat=\underline{\NAME \NOTE},
+qed=$\blacksquare$
+]{solution_style}
+\declaretheorem[numbered=no, name=Solution, style=solution_style]{solution}
+
+
+
+\numberwithin{equation}{section}
+\newcommand{\Res}{\mathrm{Res\mathop{}}}
+\newcommand{\NaN}{\texttt{NaN}}
+\newcommand{\Card}{\mathrm{Card\mathop{}}}
+\newcommand{\Rank}{\mathrm{Rank\mathop{}}}
+\newcommand{\Var}{\operatorname{Var\mathop{}}}
+\newcommand{\Cov}{\operatorname{Cov\mathop{}}}
+\newcommand{\Div}{\operatorname{Div\mathop{}}}
+\newcommand{\Hom}{\mathbf{Hom}}
+\newcommand{\Iso}{\mathbf{Iso}}
+\newcommand{\Aut}{\mathbf{Aut}}
+\newcommand{\End}{\mathbf{End}}
+\newcommand{\Ker}{\mathrm{Ker\mathop{}}}
+\newcommand{\Img}{\mathrm{Im\mathop{}}}
+\newcommand{\Intr}{\mathrm{Int\mathop{}}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+%Absolute value notation
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+%Norm notation
+\newcommand{\diff}{\mathop{}\!\textrm{d}}
+
+\newcommand{\marginnoteteal}[1]{\marginnote{\textcolor{teal}{#1}}}
+
+\newcommand\doverline[1]{%
+		\tikz[baseline=(nodeAnchor.base)]{
+			\node[inner sep=0] (nodeAnchor) {$#1$}; 
+			\draw[line width=0.1ex,line cap=round] 
+				($(nodeAnchor.north west)+(0.0em,0.2ex)$) 
+					--
+				($(nodeAnchor.north east)+(0.0em,0.2ex)$) 
+				($(nodeAnchor.north west)+(0.0em,0.5ex)$) 
+					--
+				($(nodeAnchor.north east)+(0.0em,0.5ex)$) 
+			;
+		}
+	}
+
+%indispensable!
+\title{Peer-graded Assignment \#1}
+%\author{\href{mailto:derrring@gmail.com}{Jiongyi Wang}}
+\date{Last Updated on: \today}
+
+
+%    \thanks will become a 1st page footnote.
+
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Problem 1, sets in the complex plane}
+
+\begin{enumerate}
+	\item 	$\Gamma_1 = \{z\in\mathbb{C}: \abs{z-3-2i}\leq 1\}$
+		\begin{solution}
+			$\Gamma_1 = \overline{B(x,1)}$ is the closed ball with radius $1$ centered at $x = 3+2i$ on the complex plane $\mathbb{C}$. Just noticed the boundray $\partial \Gamma_1\subset\Gamma_1$.
+		\end{solution}
+	\item	 $\Gamma_2 = \{z\in\mathbb{C}: \textrm{Im } z = 2\}$
+		\begin{solution}
+			There is no constraint on the real part of $z$, however the only value allowed in the imaginary part is $2$, $\Gamma_2$ correspond to a line in complex plane.
+		\end{solution}
+	\item 	$\Gamma_3=\{z\in \mathbb{C}\setminus \{0\} : 0< \textrm{arg } z < \pi/6\}$
+		\begin{solution}
+			 Use the fact that $\{z:\textrm{Arg }z = \theta\}$ is a line passing $(0,0)$ and with an angle $\theta$ between (with respect to the positive direction of) real axis. Noticed that $z\in \mathbb{C}\setminus \{0\}$ indiactes that $(0,0)$ is excluded on the graph. $\Gamma_3$ is open in $\mathbb{C}$ hence the boundray is not attained.
+		\end{solution}
+	\item 	$\Gamma_4=\{z\in\mathbb{C}: \abs{z-1}<\abs{z}\}$
+		\begin{solution}
+			Let $z=x+iy$ s.t $x,y \in \mathbb{R}$. By squaring two sides, 
+			\begin{equation}
+				\begin{split}
+					\abs{z-1}^2\leq\abs{z}^2 &\implies (x-1)^2+y^2 \leq x^2+y^2\\
+					{}&\implies x-\frac{1}{2}\geq 0\\
+				\end{split}
+			\end{equation}
+		that means $\Gamma_4$ indiactes the hypograph of function $x=\frac{1}{2}$. It's also open under the usual topology of $\mathbb{C}$.
+		\end{solution}
+\end{enumerate}
+
+We could hereby draw all 4 graphs together in the Figure \ref{fig:1}.
+\begin{figure}[htbp]
+	\centering
+	\begin{subfigure}[b]{.4\linewidth}
+		\centering
+		\begin{tikzpicture}
+			\draw[-{Stealth}] (-2,0)--(4,0) node[right]{$1$};
+			\draw[-{Stealth}] (0,-2)--(0,3) node[above,left]{$i$};
+			\coordinate (center) at (3,2);
+			\draw[color = blue,fill = blue!20] (center) circle[radius = 1]; 
+			%\path[fill = blue!20] (center) circle[radius = 1];
+			\draw[dashed] (3,0) node[below]{$3$}--(center) --(0,2)node[left]{$2$};
+			\fill[black,above] (center) circle[radius=1pt];
+			\draw[dashed] (3,2)--++(60:1) node[pos=0.5,sloped,auto] {$r=1$};
+	  \end{tikzpicture}
+	  \caption{$\Gamma_1=\{z\in\mathbb{C}: \abs{z-3-2i}\leq 1\}$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{.4\linewidth}
+		\centering
+		\begin{tikzpicture}
+			\draw[-{Stealth}] (-3,0)--(3,0) node[right]{$1$};
+			\draw[-{Stealth}] (0,-2)--(0,3) node[above,left]{$i$};
+			\draw[color = blue!] (-3,2)  -- (3,2);
+			\draw (0,2) circle[radius = 1pt];
+			\node[below left]  at (0,2) {$2$};
+	  \end{tikzpicture}
+	  \caption{$\Gamma_2 = \{z\in\mathbb{C}: \textrm{Im } z = 2\}$}
+	\end{subfigure}
+
+	\vfill
+	\begin{subfigure}[b]{.4\linewidth}
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				anchor=origin,at={(0pt,0pt)},
+				x=1cm, y=1cm,
+				xtick = \empty, ytick = \empty,
+				xmin = -3, xmax = 3, ymin=-2, ymax=3,
+				axis x line = middle,
+				axis y line = middle,
+				xlabel = $1$, ylabel=$i$,
+			]
+			\addplot[dashed, draw=blue, fill=blue!20,opacity=0.5](0,0)--(0:5)arc[start angle=0,end angle=30,radius=5] --cycle;
+			\end{axis}
+			\draw (0:1)arc[start angle=0,end angle=30,radius=1]node[font=\tiny,pos=0.5,sloped,auto] {$\frac{\pi}{6}$};
+			%\fill[blue!](0,0)--(0:3)arc[start angle=0,end angle=30,radius=3]--cycle;
+			\draw[blue!20, fill=white] (0,0) circle[radius = 2pt];
+
+			
+		\end{tikzpicture}
+		\caption{$\Gamma_3=\{z\in \mathbb{C}\setminus \{0\} : 0< \textrm{arg } z < \pi/6\}$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{.4\linewidth}
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				anchor=origin,at={(0pt,0pt)},
+				x=1cm, y=1cm,
+				xtick = \empty, ytick = \empty,
+				xmin = -3, xmax = 3, ymin=-2, ymax=3,
+				axis x line = middle,
+				axis y line = middle,
+				xlabel = $1$, ylabel=$i$,
+			]
+				\addplot[color=blue, dashed ,mark=\empty, fill=blue!20, opacity=0.5, name path = vert_1] coordinates{(0.5,-3) (0.5,3)};
+				\addplot[mark=\empty,  name path = vert_2] coordinates{(4,-3) (4,3)};
+				\addplot[mark=\empty, fill=blue!20, opacity=0.5] fill between[of = vert_1 and vert_2];
+			\end{axis}
+			\draw (0.5,0)circle[radius=1pt] node[below] {$\frac{1}{2}$};
+
+		\end{tikzpicture}
+		\caption{$\Gamma_4=\{z\in\mathbb{C}: \abs{z-1}<\abs{z}\}$}
+	\end{subfigure}
+\caption{The four graphs in Problem 1}
+\label{fig:1}
+\end{figure}
+
+
+\section[Problem 2, The nth roots of unity]{Problem 2, The $n$th roots of unity}
+By definithon, the $n$th roots of a number $z$ is $w$ that satisfy the equation:
+\begin{equation}\label{eq:complex-roots}
+	w^n =re^{i\theta},\quad \theta = \textrm{Arg }z \in [-\pi,\pi)
+\end{equation}
+simply noticed that we also require that $\mathrm{Arg }w\in [-\pi,\pi)$:
+\begin{equation}\label{eq:complex-roots-set}
+	w =\left\{ \sqrt[n]{r}e^{\frac{i\theta}{n}+\frac{2k\pi}{n}}: k\in\{0,1,\ldots, n-1\}\right\}
+\end{equation}
+in our case to find $n$th unit roots, it equals to solve equation \ref{eq:complex-roots} with $r=1, \theta=0$, and our desired results can be directly inferred from formula \ref{eq:complex-roots-set}:
+
+\begin{equation}
+	U_n =\left\{e^{\frac{2k\pi}{n}}: k\in\{0,1,\ldots,n-1\}\right\}
+\end{equation}
+
+it's quite obvious that $\#U_n = n$, thus all $6$th roots of unity are enumerated in $U_6$, which is
+\begin{equation}
+	U_6 = \left\{e^0, e^{\frac{i\pi}{3}} , e^{\frac{2i\pi}{3}},e^{i\pi},e^{\frac{4i\pi}{3}},e^{\frac{5i\pi}{3}}\right\}
+\end{equation}
+
+\subsection{How to draw roots of unit}
+Although the polar coordinate of complex number $z = x+iy$ can be calculate with the help of $\cos\theta+i\sin\theta =e^{i\theta}$, it's a little bit cumbersome to decide explicitly the value of $\theta$:
+\begin{equation}
+	\theta = \left\{
+	\begin{array}{lc}
+		\arccos\frac{x}{r}& y\geq0, r\neq 0\\
+		-\arccos\frac{x}{r}& y<0\\
+		NaN& r=0
+	\end{array}\right\vert \quad r = \sqrt{x^2+y^2}
+\end{equation}
+
+Espacially when the value of $\frac{x}{r}$ is not such special as $1,\frac{1}{2},\frac{\sqrt{3}}{2},\frac{\sqrt{2}}{2}$, etc. Intutively $U_6$ is cyclotomic, so its elements are uniformly distributed over the unit circle, that's sufficient for us to locate their position. To get a little bit more algebraic (and rigorous), $U_n$ is essentially a cyclic group of order $n$, one of its generators is $e^{\frac{i\pi}{n}}$(there are many generators in the same cyclic group, in our case any $e^{\frac{ik\pi}{3}}$ with $\gcd(k,6)=1$ is a generator, our construction can be started from any generator). Thus, when we draw $e^{\frac{ik\pi}{3}}$, it means that we rotate counterclockwise the generator $e^{\frac{1\pi}{3}}$ by $k$ times. We show this process in Figure \ref{fig:2}.
+
+\begin{figure}
+
+	\begin{subfigure}[t]{.3\linewidth}
+		\centering
+		\begin{tikzpicture}
+			\draw[-{Stealth}] (-1.5,0)--(1.5,0) node[right]{$1$};
+			\draw[-{Stealth}] (0,-1.5)--(0,1.5) node[above,left]{$i$};
+			\draw[name path = unit_circle] (0,0)circle[radius=1];
+			\draw[dashed, name path = root_1] (0,0) -- (canvas polar cs:radius=1cm,angle=60);
+			\fill[ name intersections ={of = root_1 and unit_circle} ] [red , opacity=0.5, every node/.style={black, opacity=1}]
+			(intersection-1)circle[radius=1pt] node[above right] {$e^{i\frac{\pi}{3}}$};
+		\end{tikzpicture}
+		\caption{pick and draw the generator $e^{\frac{i\pi}{3}}$}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{.3\linewidth}
+		\centering
+		\begin{tikzpicture}
+			\draw[-{Stealth}] (-1.5,0)--(1.5,0) node[right]{$1$};
+			\draw[-{Stealth}] (0,-1.5)--(0,1.5) node[above,left]{$i$};
+			\draw[name path = unit_circle]  (0,0)circle[radius=1];
+			\foreach \x in {1,2,3}{	
+					\draw[dashed, name path/.expanded = root_\x] (0,0) -- (canvas polar cs:radius=1cm,angle=60*\x);
+					\draw[->,red] (60*\x:1.2)arc[start angle=60*\x,end angle=60*\x+30,radius=1.2]node[font=\tiny,pos=0.5,rotate=60*(\x-1),above] {$\frac{\pi}{3}$};
+					\fill[name intersections ={of = {root_\x} and unit_circle}][red , opacity=0.5, every node/.style={black, opacity=1}]
+					(intersection-1) circle[radius=1pt]node {$e^{i\frac{{\x}\pi}{3}}$};
+				}
+				\draw[->,red!50] (220:1.3)arc[start angle=220,end angle=300,radius=1.3]node {};
+		\end{tikzpicture}
+		\caption{rotate counterclockwise with angle $\frac{\pi}{3}$ and repeat }
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{.3\linewidth}
+		\centering
+		\begin{tikzpicture}
+			\draw[-{Stealth}] (-1.5,0)--(1.5,0) node[right]{$1$};
+			\draw[-{Stealth}] (0,-1.5)--(0,1.5) node[above,left]{$i$};
+			\draw[name path global= unit_circle] (0,0)circle[radius=1];
+			\foreach \x in {0,1,2,3,4,5}{
+				\draw[dashed, name path global/.expanded=root_\x] (0,0) -- (canvas polar cs:radius=1cm,angle=60*\x);
+				\fill[name intersections ={of = {root_\x} and unit_circle}][red , opacity=0.5, every node/.style={black, opacity=1,label distance=0.1cm}]
+				(intersection-1) circle[radius=1pt]node[shift=(60*\x:0.4)]{$e^{i\frac{{\x}\pi}{3}}$};
+			}
+		\end{tikzpicture}
+		\caption{all $6$th roots of unity}
+	\end{subfigure}
+	\caption{A feasible process to draw $6$th unit roots}
+	\label{fig:2}
+\end{figure}
+
+
+
+
+
+\end{document}
